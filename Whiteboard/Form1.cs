@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using static Whiteboard.Common;
@@ -13,10 +11,10 @@ namespace Whiteboard
         private Thread ChangePosThread;
         private int ShelterWidth;
         private int ShelterHeight;
-        private int? PositionX;
-        private int? PositionY;
+        private int PositionX;
+        private int PositionY;
         private string ProcessName;
-        public Form1(string processName, int width, int height, int? positionX = null, int? positionY = null)
+        public Form1(string processName, int width, int height, int positionX, int positionY)
         {
             this.ProcessName = processName;
             this.ShelterWidth = width;
@@ -40,20 +38,15 @@ namespace Whiteboard
             //隐藏导航条
             this.FormBorderStyle = FormBorderStyle.None;
             DrawMosaic(this.pictureBox1);
-            if (this.PositionX.HasValue && this.PositionY.HasValue)
-            {
-                Location = new Point((int)this.PositionX, (int)this.PositionY);
-                this.Width = this.ShelterWidth;
-                this.Height = this.ShelterHeight;
-                return;
-            }
+
             ChangePosThread = new Thread(() =>
             {
                 while (true)
                 {
-                    //如果没有指定定位则以遮盖窗口左上角为准
                     var rect = GetWindowRect(ProcessName);
-                    Location = new Point(rect.Left - 1, rect.Top);
+                    //针对选择窗口调整渲染位置
+                    //初始渲染位置为窗口左上角
+                    Location = new Point(this.PositionX + rect.Left - 1, this.PositionY + rect.Top);
                     this.Width = this.ShelterWidth;
                     this.Height = this.ShelterHeight;
                     Thread.Sleep(200);

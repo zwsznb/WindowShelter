@@ -23,14 +23,14 @@ namespace Whiteboard
                     if (processName.Length == 0) throw new Exception();
                     var width = Convert.ToInt32(ShelterWidth.Text);
                     var height = Convert.ToInt32(ShelterHeight.Text);
-                    int? positionX = null;
-                    int? positionY = null;
+                    int positionX;
+                    int positionY;
                     if (PositionX.Text.Length == 0)
-                        positionX = null;
+                        positionX = 0;
                     else
                         positionX = Convert.ToInt32(PositionX.Text);
                     if (PositionY.Text.Length == 0)
-                        positionY = null;
+                        positionY = 0;
                     else
                         positionY = Convert.ToInt32(PositionX.Text);
                     form = new Form1(processName, width, height, positionX, positionY);
@@ -67,8 +67,13 @@ namespace Whiteboard
         }
         private void FormLoad(object sender, EventArgs e)
         {
-            this.ProcessList.Items.AddRange(Common.GetProcessNameList().ToArray());
+            //this.ProcessList.Items.AddRange(Common.GetProcessNameList().ToArray());
         }
 
+        private void ProcessListClick(object sender, EventArgs e)
+        {
+            this.ProcessList.Items.Clear();
+            this.ProcessList.Items.AddRange(Common.GetProcessNameList().ToArray());
+        }
     }
 }

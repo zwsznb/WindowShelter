@@ -32,3 +32,16 @@ C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whi
 C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.exe
 C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.pdb
 C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.ControlForm.resources
+W:\project\window-shelter\Whiteboard\bin\Release\1698909836913.jpg
+W:\project\window-shelter\Whiteboard\bin\Release\Whiteboard.exe.config
+W:\project\window-shelter\Whiteboard\bin\Release\Whiteboard.exe
+W:\project\window-shelter\Whiteboard\bin\Release\Whiteboard.pdb
+W:\project\window-shelter\Whiteboard\obj\Release\Whiteboard.csproj.AssemblyReference.cache
+W:\project\window-shelter\Whiteboard\obj\Release\Whiteboard.csproj.SuggestedBindingRedirects.cache
+W:\project\window-shelter\Whiteboard\obj\Release\Whiteboard.ControlForm.resources
+W:\project\window-shelter\Whiteboard\obj\Release\Whiteboard.Form1.resources
+W:\project\window-shelter\Whiteboard\obj\Release\Whiteboard.Properties.Resources.resources
+W:\project\window-shelter\Whiteboard\obj\Release\Whiteboard.csproj.GenerateResource.cache
+W:\project\window-shelter\Whiteboard\obj\Release\Whiteboard.csproj.CoreCompileInputs.cache
+W:\project\window-shelter\Whiteboard\obj\Release\Whiteboard.exe
+W:\project\window-shelter\Whiteboard\obj\Release\Whiteboard.pdb

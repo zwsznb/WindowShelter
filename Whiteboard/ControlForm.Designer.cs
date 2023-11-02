@@ -76,8 +76,10 @@ namespace Whiteboard
             this.ProcessList.FormattingEnabled = true;
             this.ProcessList.Location = new System.Drawing.Point(180, 39);
             this.ProcessList.Name = "ProcessList";
-            this.ProcessList.Size = new System.Drawing.Size(108, 20);
+            this.ProcessList.Size = new System.Drawing.Size(108, 23);
             this.ProcessList.TabIndex = 2;
+            //this.ProcessList.SelectedIndexChanged += new System.EventHandler(this.ProcessListSelectedIndexChanged);
+            this.ProcessList.Click += new System.EventHandler(this.ProcessListClick);
             this.ProcessList.SelectionChangeCommitted += new System.EventHandler(this.ProcessSelect);
             // 
             // ProcessName
@@ -85,7 +87,7 @@ namespace Whiteboard
             this.ProcessName.AutoSize = true;
             this.ProcessName.Location = new System.Drawing.Point(72, 42);
             this.ProcessName.Name = "ProcessName";
-            this.ProcessName.Size = new System.Drawing.Size(41, 12);
+            this.ProcessName.Size = new System.Drawing.Size(52, 15);
             this.ProcessName.TabIndex = 3;
             this.ProcessName.Text = "进程：";
             // 
@@ -93,7 +95,7 @@ namespace Whiteboard
             // 
             this.ShelterWidth.Location = new System.Drawing.Point(180, 84);
             this.ShelterWidth.Name = "ShelterWidth";
-            this.ShelterWidth.Size = new System.Drawing.Size(108, 21);
+            this.ShelterWidth.Size = new System.Drawing.Size(108, 25);
             this.ShelterWidth.TabIndex = 4;
             // 
             // ShelterWidthLabel
@@ -101,7 +103,7 @@ namespace Whiteboard
             this.ShelterWidthLabel.AutoSize = true;
             this.ShelterWidthLabel.Location = new System.Drawing.Point(72, 84);
             this.ShelterWidthLabel.Name = "ShelterWidthLabel";
-            this.ShelterWidthLabel.Size = new System.Drawing.Size(53, 12);
+            this.ShelterWidthLabel.Size = new System.Drawing.Size(67, 15);
             this.ShelterWidthLabel.TabIndex = 5;
             this.ShelterWidthLabel.Text = "遮盖宽度";
             // 
@@ -109,7 +111,7 @@ namespace Whiteboard
             // 
             this.ShelterHeight.Location = new System.Drawing.Point(180, 124);
             this.ShelterHeight.Name = "ShelterHeight";
-            this.ShelterHeight.Size = new System.Drawing.Size(108, 21);
+            this.ShelterHeight.Size = new System.Drawing.Size(108, 25);
             this.ShelterHeight.TabIndex = 6;
             // 
             // ShelterHeightLabel
@@ -117,7 +119,7 @@ namespace Whiteboard
             this.ShelterHeightLabel.AutoSize = true;
             this.ShelterHeightLabel.Location = new System.Drawing.Point(72, 124);
             this.ShelterHeightLabel.Name = "ShelterHeightLabel";
-            this.ShelterHeightLabel.Size = new System.Drawing.Size(53, 12);
+            this.ShelterHeightLabel.Size = new System.Drawing.Size(67, 15);
             this.ShelterHeightLabel.TabIndex = 7;
             this.ShelterHeightLabel.Text = "遮盖高度";
             // 
@@ -125,14 +127,14 @@ namespace Whiteboard
             // 
             this.PositionX.Location = new System.Drawing.Point(180, 164);
             this.PositionX.Name = "PositionX";
-            this.PositionX.Size = new System.Drawing.Size(108, 21);
+            this.PositionX.Size = new System.Drawing.Size(108, 25);
             this.PositionX.TabIndex = 8;
             // 
             // PositionY
             // 
             this.PositionY.Location = new System.Drawing.Point(180, 201);
             this.PositionY.Name = "PositionY";
-            this.PositionY.Size = new System.Drawing.Size(108, 21);
+            this.PositionY.Size = new System.Drawing.Size(108, 25);
             this.PositionY.TabIndex = 9;
             // 
             // PositionXLabel
@@ -140,7 +142,7 @@ namespace Whiteboard
             this.PositionXLabel.AutoSize = true;
             this.PositionXLabel.Location = new System.Drawing.Point(72, 164);
             this.PositionXLabel.Name = "PositionXLabel";
-            this.PositionXLabel.Size = new System.Drawing.Size(59, 12);
+            this.PositionXLabel.Size = new System.Drawing.Size(75, 15);
             this.PositionXLabel.TabIndex = 10;
             this.PositionXLabel.Text = "遮盖定位X";
             // 
@@ -149,7 +151,7 @@ namespace Whiteboard
             this.PositionYLabel.AutoSize = true;
             this.PositionYLabel.Location = new System.Drawing.Point(72, 201);
             this.PositionYLabel.Name = "PositionYLabel";
-            this.PositionYLabel.Size = new System.Drawing.Size(59, 12);
+            this.PositionYLabel.Size = new System.Drawing.Size(75, 15);
             this.PositionYLabel.TabIndex = 11;
             this.PositionYLabel.Text = "遮盖定位Y";
             // 
@@ -158,7 +160,7 @@ namespace Whiteboard
             this.CurWindowW.AutoSize = true;
             this.CurWindowW.Location = new System.Drawing.Point(60, 9);
             this.CurWindowW.Name = "CurWindowW";
-            this.CurWindowW.Size = new System.Drawing.Size(65, 12);
+            this.CurWindowW.Size = new System.Drawing.Size(82, 15);
             this.CurWindowW.TabIndex = 12;
             this.CurWindowW.Text = "窗口宽度：";
             // 
@@ -167,7 +169,7 @@ namespace Whiteboard
             this.CurWindowH.AutoSize = true;
             this.CurWindowH.Location = new System.Drawing.Point(217, 9);
             this.CurWindowH.Name = "CurWindowH";
-            this.CurWindowH.Size = new System.Drawing.Size(65, 12);
+            this.CurWindowH.Size = new System.Drawing.Size(82, 15);
             this.CurWindowH.TabIndex = 13;
             this.CurWindowH.Text = "窗口高度：";
             // 
@@ -176,7 +178,7 @@ namespace Whiteboard
             this.WidthLabel.AutoSize = true;
             this.WidthLabel.Location = new System.Drawing.Point(122, 9);
             this.WidthLabel.Name = "WidthLabel";
-            this.WidthLabel.Size = new System.Drawing.Size(11, 12);
+            this.WidthLabel.Size = new System.Drawing.Size(15, 15);
             this.WidthLabel.TabIndex = 14;
             this.WidthLabel.Text = "0";
             // 
@@ -185,7 +187,7 @@ namespace Whiteboard
             this.HeightLabel.AutoSize = true;
             this.HeightLabel.Location = new System.Drawing.Point(288, 9);
             this.HeightLabel.Name = "HeightLabel";
-            this.HeightLabel.Size = new System.Drawing.Size(11, 12);
+            this.HeightLabel.Size = new System.Drawing.Size(15, 15);
             this.HeightLabel.TabIndex = 15;
             this.HeightLabel.Text = "0";
             // 
@@ -194,7 +196,7 @@ namespace Whiteboard
             this.Tips.AutoSize = true;
             this.Tips.Location = new System.Drawing.Point(33, 324);
             this.Tips.Name = "Tips";
-            this.Tips.Size = new System.Drawing.Size(293, 12);
+            this.Tips.Size = new System.Drawing.Size(369, 15);
             this.Tips.TabIndex = 16;
             this.Tips.Text = "tip:如果没有填写定位，则以选定进程窗口的定位为准";
             // 
