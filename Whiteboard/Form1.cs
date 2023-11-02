@@ -20,28 +20,30 @@ namespace Whiteboard
         {
             InitializeComponent();
         }
-        Point mouseOff;//鼠标移动位置变量
-        bool leftFlag;//标签是否为左键
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        private string ProcessName = "WeChat";
+        private void Form1_Resize(object sender, EventArgs e)
         {
-        }
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
-        {
-        }
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
-        {
+            var rect = GetWindowRect();
+            var winInfo = new ShelterWinInfo(rect);
+            this.pictureBox1.Width = winInfo.Width;
+            this.pictureBox1.Height = winInfo.Height;
+            DrawMosaic(this.pictureBox1);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
+            //隐藏导航条
+            this.FormBorderStyle = FormBorderStyle.None;
+            DrawMosaic(this.pictureBox1);
             var changePosThread = new Thread(() =>
             {
                 while (true)
                 {
-                    var rect = GetWeChatWindowRect(this);
+                    var rect = GetWindowRect();
+                    var winInfo = new ShelterWinInfo(rect);
                     Location = new Point(rect.Left - 8, rect.Top);
-                    this.Width = rect.Right;
+                    this.Width = winInfo.Width - 300;
                     Thread.Sleep(200);
                 }
             });
@@ -50,36 +52,17 @@ namespace Whiteboard
             changePosThread.Start();
         }
 
-        private static User32.Rect GetWeChatWindowRect(Form form)
+        private int GetProcessIdByName()
         {
             //获取所有的进程列表
             Process[] ps = Process.GetProcesses();
             foreach (Process p in ps)
             {
-                string info = "";
                 try
                 {
-                    if (p.ProcessName.Equals("WeChat"))
+                    if (p.ProcessName.Equals(ProcessName))
                     {
-                        //获取窗口句柄
-                        var handle = p.MainWindowHandle;
-
-                        User32.Rect windowRect = new User32.Rect();
-                        var isSuccess = User32.GetWindowRect(handle, ref windowRect);
-                        if (isSuccess)
-                        {
-                            //左上角
-                            Console.WriteLine(windowRect.Top);
-                            Console.WriteLine(windowRect.Left);
-                            //右下角
-                            Console.WriteLine(windowRect.Right);
-                            Console.WriteLine(windowRect.Bottom);
-                            return windowRect;
-                        }
-                        else
-                        {
-                            Console.WriteLine("获取窗口信息失败");
-                        }
+                        return p.Id;
                     }
                     else
                     {
@@ -90,9 +73,33 @@ namespace Whiteboard
                 {
                     continue;
                 }
-                Console.WriteLine(info);
             }
-            return new User32.Rect();
+            return 0;
+        }
+
+        public User32.Rect GetWindowRect()
+        {
+            var process = Process.GetProcessById(GetProcessIdByName());
+            //获取窗口句柄
+            var handle = process.MainWindowHandle;
+
+            User32.Rect windowRect = new User32.Rect();
+            var isSuccess = User32.GetWindowRect(handle, ref windowRect);
+            if (isSuccess)
+            {
+                //左上角
+                Console.WriteLine(windowRect.Top);
+                Console.WriteLine(windowRect.Left);
+                //右下角
+                Console.WriteLine(windowRect.Right);
+                Console.WriteLine(windowRect.Bottom);
+                return windowRect;
+            }
+            else
+            {
+                Console.WriteLine("获取窗口信息失败");
+            }
+            return windowRect;
         }
 
         public static class User32
@@ -108,6 +115,50 @@ namespace Whiteboard
                 public int Right;
                 public int Bottom;
             }
+        }
+        public class ShelterWinInfo
+        {
+            public ShelterWinInfo(User32.Rect rect)
+            {
+                Width = rect.Right - rect.Left;
+                Height = rect.Bottom - rect.Top;
+            }
+            public int Width { get; set; }
+            public int Height { get; set; }
+
+        }
+
+        //画马赛克
+        private void DrawMosaic(PictureBox image)
+        {
+            int width = image.Width, height = image.Height;
+
+            //bitmap
+            Bitmap bmp = new Bitmap(width, height);
+
+            //random number
+            Random rand = new Random();
+
+            //create random pixels
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    //generate random ARGB value
+                    int a = rand.Next(256);
+                    int r = rand.Next(256);
+                    int g = rand.Next(256);
+                    int b = rand.Next(256);
+
+                    //set ARGB value
+                    bmp.SetPixel(x, y, Color.FromArgb(a, r, g, b));
+                }
+            }
+
+            //load bmp in picturebox1
+            pictureBox1.Image = bmp;
+
+
         }
     }
 }
