@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using static Whiteboard.Common;
 
 namespace Whiteboard
 {
@@ -14,7 +15,8 @@ namespace Whiteboard
         private int ShelterHeight;
         private int? PositionX;
         private int? PositionY;
-        public Form1(string processName, int width, int height, int? positionX, int? positionY)
+        private string ProcessName;
+        public Form1(string processName, int width, int height, int? positionX = null, int? positionY = null)
         {
             this.ProcessName = processName;
             this.ShelterWidth = width;
@@ -23,10 +25,9 @@ namespace Whiteboard
             this.PositionY = positionY;
             InitializeComponent();
         }
-        private string ProcessName;
         private void Form1Resize(object sender, EventArgs e)
         {
-            var rect = GetWindowRect();
+            var rect = GetWindowRect(ProcessName);
             var winInfo = new ShelterWinInfo(rect);
             this.pictureBox1.Width = winInfo.Width;
             this.pictureBox1.Height = winInfo.Height;
@@ -44,13 +45,13 @@ namespace Whiteboard
                 while (true)
                 {
                     //如果没有指定定位则以遮盖窗口左上角为准
-                    var rect = GetWindowRect();
+                    var rect = GetWindowRect(ProcessName);
                     if (this.PositionX.HasValue && this.PositionY.HasValue)
                         Location = new Point((int)this.PositionX, (int)this.PositionY);
                     else
                         Location = new Point(rect.Left - 1, rect.Top);
 
-                    var winInfo = new ShelterWinInfo(rect);
+                    //var winInfo = new ShelterWinInfo(rect);
                     //遮盖宽度，减三百是为了不遮盖关闭按钮
                     //this.Width = winInfo.Width - 300;
                     this.Width = this.ShelterWidth;
@@ -66,57 +67,13 @@ namespace Whiteboard
         }
 
 
-
-        public User32.Rect GetWindowRect()
-        {
-            var process = Process.GetProcessById(Common.GetProcessIdByName(ProcessName));
-            //获取窗口句柄
-            var handle = process.MainWindowHandle;
-
-            User32.Rect windowRect = new User32.Rect();
-            var isSuccess = User32.GetWindowRect(handle, ref windowRect);
-            if (isSuccess)
-            {
-                return windowRect;
-            }
-            else
-            {
-                Console.WriteLine("获取窗口信息失败");
-            }
-            return windowRect;
-        }
-
-        public static class User32
-        {
-            [DllImport("User32.dll")]
-            public static extern bool GetWindowRect(IntPtr hwnd, ref Rect rectangle);
-
-            [StructLayout(LayoutKind.Sequential)]
-            public struct Rect
-            {
-                public int Left;
-                public int Top;
-                public int Right;
-                public int Bottom;
-            }
-        }
         private void Form1Dispose(object sender, EventArgs e)
         {
             //终止线程
             if (ChangePosThread != null)
                 ChangePosThread.Abort();
         }
-        public class ShelterWinInfo
-        {
-            public ShelterWinInfo(User32.Rect rect)
-            {
-                Width = rect.Right - rect.Left;
-                Height = rect.Bottom - rect.Top;
-            }
-            public int Width { get; set; }
-            public int Height { get; set; }
 
-        }
 
         //画马赛克
         private void DrawMosaic(PictureBox image)

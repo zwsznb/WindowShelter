@@ -44,6 +44,11 @@ namespace Whiteboard
             this.PositionY = new System.Windows.Forms.TextBox();
             this.PositionXLabel = new System.Windows.Forms.Label();
             this.PositionYLabel = new System.Windows.Forms.Label();
+            this.CurWindowW = new System.Windows.Forms.Label();
+            this.CurWindowH = new System.Windows.Forms.Label();
+            this.WidthLabel = new System.Windows.Forms.Label();
+            this.HeightLabel = new System.Windows.Forms.Label();
+            this.Tips = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // CreateButton
@@ -73,6 +78,7 @@ namespace Whiteboard
             this.ProcessList.Name = "ProcessList";
             this.ProcessList.Size = new System.Drawing.Size(108, 20);
             this.ProcessList.TabIndex = 2;
+            this.ProcessList.SelectionChangeCommitted+=new EventHandler(ProcessSelect);
             // 
             // ProcessName
             // 
@@ -147,9 +153,59 @@ namespace Whiteboard
             this.PositionYLabel.TabIndex = 11;
             this.PositionYLabel.Text = "遮盖定位Y";
             // 
+            // CurWindowW
+            // 
+            this.CurWindowW.AutoSize = true;
+            this.CurWindowW.Location = new System.Drawing.Point(51, 9);
+            this.CurWindowW.Name = "CurWindowW";
+            this.CurWindowW.Size = new System.Drawing.Size(65, 12);
+            this.CurWindowW.TabIndex = 12;
+            this.CurWindowW.Text = "窗口宽度：";
+            // 
+            // CurWindowH
+            // 
+            this.CurWindowH.AutoSize = true;
+            this.CurWindowH.Location = new System.Drawing.Point(194, 9);
+            this.CurWindowH.Name = "CurWindowH";
+            this.CurWindowH.Size = new System.Drawing.Size(65, 12);
+            this.CurWindowH.TabIndex = 13;
+            this.CurWindowH.Text = "窗口高度：";
+            // 
+            // WidthLabel
+            // 
+            this.WidthLabel.AutoSize = true;
+            this.WidthLabel.Location = new System.Drawing.Point(122, 9);
+            this.WidthLabel.Name = "WidthLabel";
+            this.WidthLabel.Size = new System.Drawing.Size(11, 12);
+            this.WidthLabel.TabIndex = 14;
+            this.WidthLabel.Text = "0";
+            // 
+            // HeightLabel
+            // 
+            this.HeightLabel.AutoSize = true;
+            this.HeightLabel.Location = new System.Drawing.Point(265, 9);
+            this.HeightLabel.Name = "HeightLabel";
+            this.HeightLabel.Size = new System.Drawing.Size(11, 12);
+            this.HeightLabel.TabIndex = 15;
+            this.HeightLabel.Text = "0";
+            // 
+            // Tips
+            // 
+            this.Tips.AutoSize = true;
+            this.Tips.Location = new System.Drawing.Point(33, 324);
+            this.Tips.Name = "Tips";
+            this.Tips.Size = new System.Drawing.Size(293, 12);
+            this.Tips.TabIndex = 16;
+            this.Tips.Text = "tip:如果没有填写定位，则以选定进程窗口的定位为准";
+            // 
             // ControlForm
             // 
             this.ClientSize = new System.Drawing.Size(354, 345);
+            this.Controls.Add(this.Tips);
+            this.Controls.Add(this.HeightLabel);
+            this.Controls.Add(this.WidthLabel);
+            this.Controls.Add(this.CurWindowH);
+            this.Controls.Add(this.CurWindowW);
             this.Controls.Add(this.PositionYLabel);
             this.Controls.Add(this.PositionXLabel);
             this.Controls.Add(this.PositionY);
@@ -169,6 +225,8 @@ namespace Whiteboard
 
         }
 
+        
+
 
 
 
@@ -186,5 +244,10 @@ namespace Whiteboard
         private TextBox PositionY;
         private Label PositionXLabel;
         private Label PositionYLabel;
+        private Label CurWindowW;
+        private Label CurWindowH;
+        private Label WidthLabel;
+        private Label HeightLabel;
+        private Label Tips;
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using static Whiteboard.Common;
 
 namespace Whiteboard
 {
@@ -20,12 +21,48 @@ namespace Whiteboard
         {
             if (form == null)
             {
-                form = new Form1();
-                form.Show();
+
+                try
+                {
+                    var processName = ProcessList.SelectedItem as string;
+                    if (processName.Length == 0) throw new Exception();
+                    var width = Convert.ToInt32(ShelterWidth.Text);
+                    var height = Convert.ToInt32(ShelterHeight.Text);
+                    int? positionX = null;
+                    int? positionY = null;
+                    if (PositionX.Text.Length == 0)
+                        positionX = null;
+                    else
+                        positionX = Convert.ToInt32(PositionX.Text);
+                    if (PositionY.Text.Length == 0)
+                        positionY = null;
+                    else
+                        positionY = Convert.ToInt32(PositionX.Text);
+                    form = new Form1(processName, width, height, positionX, positionY);
+                    form.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("数据格式不正确,请正确填写");
+                    FormClose();
+                }
             }
+        }
+        private void ProcessSelect(object sender, EventArgs e)
+        {
+            var processName = ProcessList.SelectedItem as string;
+            if (processName.Length == 0) return;
+            var rect = GetWindowRect(processName);
+            var winInfo = new ShelterWinInfo(rect);
+            WidthLabel.Text = winInfo.Width.ToString();
+            HeightLabel.Text = winInfo.Height.ToString();
         }
 
         private void CloseClick(object sender, EventArgs e)
+        {
+            FormClose();
+        }
+        private void FormClose()
         {
             if (form != null)
             {
@@ -37,7 +74,6 @@ namespace Whiteboard
         {
             this.ProcessList.Items.AddRange(Common.GetProcessNameList().ToArray());
         }
-     
 
     }
 }
