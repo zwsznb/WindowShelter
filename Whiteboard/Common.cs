@@ -50,7 +50,7 @@ namespace Whiteboard
                     continue;
                 }
             }
-            return processList;
+            return processList.OrderBy(x => x).ToList();
         }
         public static User32.Rect GetWindowRect(string ProcessName)
         {

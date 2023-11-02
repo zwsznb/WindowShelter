@@ -220,6 +220,7 @@ namespace Whiteboard
             this.Controls.Add(this.CreateButton);
             this.Name = "ControlForm";
             this.Load += new System.EventHandler(this.FormLoad);
+            this.Text = "zwsznb";
             this.ResumeLayout(false);
             this.PerformLayout();
 
