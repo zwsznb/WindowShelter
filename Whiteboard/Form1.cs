@@ -40,23 +40,21 @@ namespace Whiteboard
             //隐藏导航条
             this.FormBorderStyle = FormBorderStyle.None;
             DrawMosaic(this.pictureBox1);
+            if (this.PositionX.HasValue && this.PositionY.HasValue)
+            {
+                Location = new Point((int)this.PositionX, (int)this.PositionY);
+                this.Width = this.ShelterWidth;
+                this.Height = this.ShelterHeight;
+                return;
+            }
             ChangePosThread = new Thread(() =>
             {
                 while (true)
                 {
                     //如果没有指定定位则以遮盖窗口左上角为准
                     var rect = GetWindowRect(ProcessName);
-                    if (this.PositionX.HasValue && this.PositionY.HasValue)
-                        Location = new Point((int)this.PositionX, (int)this.PositionY);
-                    else
-                        Location = new Point(rect.Left - 1, rect.Top);
-
-                    //var winInfo = new ShelterWinInfo(rect);
-                    //遮盖宽度，减三百是为了不遮盖关闭按钮
-                    //this.Width = winInfo.Width - 300;
+                    Location = new Point(rect.Left - 1, rect.Top);
                     this.Width = this.ShelterWidth;
-                    //大概高度是十二分之一，微信显示名字的栏目
-                    //this.Height = Convert.ToInt32(winInfo.Height * 0.08);
                     this.Height = this.ShelterHeight;
                     Thread.Sleep(200);
                 }

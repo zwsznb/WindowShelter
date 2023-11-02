@@ -78,7 +78,7 @@ namespace Whiteboard
             this.ProcessList.Name = "ProcessList";
             this.ProcessList.Size = new System.Drawing.Size(108, 20);
             this.ProcessList.TabIndex = 2;
-            this.ProcessList.SelectionChangeCommitted+=new EventHandler(ProcessSelect);
+            this.ProcessList.SelectionChangeCommitted += new System.EventHandler(this.ProcessSelect);
             // 
             // ProcessName
             // 
@@ -156,7 +156,7 @@ namespace Whiteboard
             // CurWindowW
             // 
             this.CurWindowW.AutoSize = true;
-            this.CurWindowW.Location = new System.Drawing.Point(51, 9);
+            this.CurWindowW.Location = new System.Drawing.Point(60, 9);
             this.CurWindowW.Name = "CurWindowW";
             this.CurWindowW.Size = new System.Drawing.Size(65, 12);
             this.CurWindowW.TabIndex = 12;
@@ -165,7 +165,7 @@ namespace Whiteboard
             // CurWindowH
             // 
             this.CurWindowH.AutoSize = true;
-            this.CurWindowH.Location = new System.Drawing.Point(194, 9);
+            this.CurWindowH.Location = new System.Drawing.Point(217, 9);
             this.CurWindowH.Name = "CurWindowH";
             this.CurWindowH.Size = new System.Drawing.Size(65, 12);
             this.CurWindowH.TabIndex = 13;
@@ -183,7 +183,7 @@ namespace Whiteboard
             // HeightLabel
             // 
             this.HeightLabel.AutoSize = true;
-            this.HeightLabel.Location = new System.Drawing.Point(265, 9);
+            this.HeightLabel.Location = new System.Drawing.Point(288, 9);
             this.HeightLabel.Name = "HeightLabel";
             this.HeightLabel.Size = new System.Drawing.Size(11, 12);
             this.HeightLabel.TabIndex = 15;
@@ -219,8 +219,8 @@ namespace Whiteboard
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.CreateButton);
             this.Name = "ControlForm";
-            this.Load += new System.EventHandler(this.FormLoad);
             this.Text = "zwsznb";
+            this.Load += new System.EventHandler(this.FormLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 
