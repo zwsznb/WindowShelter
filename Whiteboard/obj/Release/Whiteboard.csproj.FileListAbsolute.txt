@@ -19,3 +19,16 @@ C:\backup\电子书\project\whiteboard\Whiteboard\obj\Release\Whiteboard.csproj.
 C:\backup\电子书\project\whiteboard\Whiteboard\obj\Release\Whiteboard.exe
 C:\backup\电子书\project\whiteboard\Whiteboard\obj\Release\Whiteboard.pdb
 C:\backup\电子书\project\whiteboard\Whiteboard\bin\Release\1698909836913.jpg
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\bin\Release\1698909836913.jpg
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\bin\Release\Whiteboard.exe.config
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\bin\Release\Whiteboard.exe
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\bin\Release\Whiteboard.pdb
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.csproj.AssemblyReference.cache
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.csproj.SuggestedBindingRedirects.cache
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.Form1.resources
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.Properties.Resources.resources
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.csproj.GenerateResource.cache
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.csproj.CoreCompileInputs.cache
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.exe
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.pdb
+C:\backup\电子书\project\whiteboard\window-shelter\Whiteboard\obj\Release\Whiteboard.ControlForm.resources

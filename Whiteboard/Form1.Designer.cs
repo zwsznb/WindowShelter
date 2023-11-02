@@ -65,10 +65,13 @@ namespace Whiteboard
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
+            this.Disposed += new System.EventHandler(this.Form1_Dispose);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
+
+       
 
 
 

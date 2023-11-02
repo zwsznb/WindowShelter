@@ -9,6 +9,7 @@ namespace Whiteboard
 {
     public partial class Form1 : Form
     {
+        private Thread ChangePosThread;
         public Form1()
         {
             InitializeComponent();
@@ -29,7 +30,7 @@ namespace Whiteboard
             //隐藏导航条
             this.FormBorderStyle = FormBorderStyle.None;
             DrawMosaic(this.pictureBox1);
-            var changePosThread = new Thread(() =>
+            ChangePosThread = new Thread(() =>
             {
                 while (true)
                 {
@@ -44,8 +45,8 @@ namespace Whiteboard
                 }
             });
             //设置为后台线程
-            changePosThread.IsBackground = true;
-            changePosThread.Start();
+            ChangePosThread.IsBackground = true;
+            ChangePosThread.Start();
         }
 
         private int GetProcessIdByName()
@@ -105,6 +106,12 @@ namespace Whiteboard
                 public int Right;
                 public int Bottom;
             }
+        }
+        private void Form1_Dispose(object sender, EventArgs e)
+        {
+            //终止线程
+            if (ChangePosThread != null)
+                ChangePosThread.Abort();
         }
         public class ShelterWinInfo
         {
