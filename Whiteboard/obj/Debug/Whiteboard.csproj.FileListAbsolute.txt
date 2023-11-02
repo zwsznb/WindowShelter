@@ -1,0 +1,9 @@
+D:\ProjectC\ProjectCSharp\Whiteboard\Whiteboard\bin\Debug\Whiteboard.exe.config
+D:\ProjectC\ProjectCSharp\Whiteboard\Whiteboard\obj\Debug\Whiteboard.csprojResolveAssemblyReference.cache
+D:\ProjectC\ProjectCSharp\Whiteboard\Whiteboard\obj\Debug\Whiteboard.Form1.resources
+D:\ProjectC\ProjectCSharp\Whiteboard\Whiteboard\obj\Debug\Whiteboard.Properties.Resources.resources
+D:\ProjectC\ProjectCSharp\Whiteboard\Whiteboard\obj\Debug\Whiteboard.csproj.GenerateResource.Cache
+D:\ProjectC\ProjectCSharp\Whiteboard\Whiteboard\bin\Debug\Whiteboard.exe
+D:\ProjectC\ProjectCSharp\Whiteboard\Whiteboard\bin\Debug\Whiteboard.pdb
+D:\ProjectC\ProjectCSharp\Whiteboard\Whiteboard\obj\Debug\Whiteboard.exe
+D:\ProjectC\ProjectCSharp\Whiteboard\Whiteboard\obj\Debug\Whiteboard.pdb
