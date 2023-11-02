@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Whiteboard
@@ -42,8 +35,11 @@ namespace Whiteboard
                 {
                     var rect = GetWindowRect();
                     var winInfo = new ShelterWinInfo(rect);
-                    Location = new Point(rect.Left - 8, rect.Top);
+                    Location = new Point(rect.Left - 1, rect.Top);
+                    //遮盖宽度，减三百是为了不遮盖关闭按钮
                     this.Width = winInfo.Width - 300;
+                    //大概高度是十二分之一，微信显示名字的栏目
+                    this.Height = Convert.ToInt32(winInfo.Height * 0.08);
                     Thread.Sleep(200);
                 }
             });
@@ -87,12 +83,6 @@ namespace Whiteboard
             var isSuccess = User32.GetWindowRect(handle, ref windowRect);
             if (isSuccess)
             {
-                //左上角
-                Console.WriteLine(windowRect.Top);
-                Console.WriteLine(windowRect.Left);
-                //右下角
-                Console.WriteLine(windowRect.Right);
-                Console.WriteLine(windowRect.Bottom);
                 return windowRect;
             }
             else
@@ -132,33 +122,63 @@ namespace Whiteboard
         private void DrawMosaic(PictureBox image)
         {
             int width = image.Width, height = image.Height;
+            Image img = Image.FromFile($@"{AppDomain.CurrentDomain.BaseDirectory}/1698909836913.jpg");
+            //重置高宽
+            Bitmap map = new Bitmap(img, new Size(width, height));
+            var adjustMap = AdjustTobMosaic(map, 8);
+            pictureBox1.Image = adjustMap;
 
-            //bitmap
-            Bitmap bmp = new Bitmap(width, height);
+        }
 
-            //random number
-            Random rand = new Random();
-
-            //create random pixels
-            for (int y = 0; y < height; y++)
+        /// <summary>
+        /// https://www.cnblogs.com/smartsmile/p/7665799.html
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <param name="effectWidth"></param>
+        /// <returns></returns>
+        public Bitmap AdjustTobMosaic(Bitmap bitmap, int effectWidth)
+        {
+            // 差异最多的就是以照一定范围取样 玩之后直接去下一个范围
+            for (int heightOfffset = 0; heightOfffset < bitmap.Height; heightOfffset += effectWidth)
             {
-                for (int x = 0; x < width; x++)
+                for (int widthOffset = 0; widthOffset < bitmap.Width; widthOffset += effectWidth)
                 {
-                    //generate random ARGB value
-                    int a = rand.Next(256);
-                    int r = rand.Next(256);
-                    int g = rand.Next(256);
-                    int b = rand.Next(256);
+                    int avgR = 0, avgG = 0, avgB = 0;
+                    int blurPixelCount = 0;
 
-                    //set ARGB value
-                    bmp.SetPixel(x, y, Color.FromArgb(a, r, g, b));
+                    for (int x = widthOffset; (x < widthOffset + effectWidth && x < bitmap.Width); x++)
+                    {
+                        for (int y = heightOfffset; (y < heightOfffset + effectWidth && y < bitmap.Height); y++)
+                        {
+                            System.Drawing.Color pixel = bitmap.GetPixel(x, y);
+
+                            avgR += pixel.R;
+                            avgG += pixel.G;
+                            avgB += pixel.B;
+
+                            blurPixelCount++;
+                        }
+                    }
+
+                    // 计算范围平均
+                    avgR = avgR / blurPixelCount;
+                    avgG = avgG / blurPixelCount;
+                    avgB = avgB / blurPixelCount;
+
+
+                    // 所有范围内都设定此值
+                    for (int x = widthOffset; (x < widthOffset + effectWidth && x < bitmap.Width); x++)
+                    {
+                        for (int y = heightOfffset; (y < heightOfffset + effectWidth && y < bitmap.Height); y++)
+                        {
+
+                            System.Drawing.Color newColor = System.Drawing.Color.FromArgb(avgR, avgG, avgB);
+                            bitmap.SetPixel(x, y, newColor);
+                        }
+                    }
                 }
             }
-
-            //load bmp in picturebox1
-            pictureBox1.Image = bmp;
-
-
+            return bitmap;
         }
     }
 }

@@ -18,3 +18,4 @@ C:\backup\电子书\project\whiteboard\Whiteboard\obj\Release\Whiteboard.csproj.
 C:\backup\电子书\project\whiteboard\Whiteboard\obj\Release\Whiteboard.csproj.CoreCompileInputs.cache
 C:\backup\电子书\project\whiteboard\Whiteboard\obj\Release\Whiteboard.exe
 C:\backup\电子书\project\whiteboard\Whiteboard\obj\Release\Whiteboard.pdb
+C:\backup\电子书\project\whiteboard\Whiteboard\bin\Release\1698909836913.jpg
