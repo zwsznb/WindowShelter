@@ -10,12 +10,21 @@ namespace Whiteboard
     public partial class Form1 : Form
     {
         private Thread ChangePosThread;
-        public Form1()
+        private int ShelterWidth;
+        private int ShelterHeight;
+        private int? PositionX;
+        private int? PositionY;
+        public Form1(string processName, int width, int height, int? positionX, int? positionY)
         {
+            this.ProcessName = processName;
+            this.ShelterWidth = width;
+            this.ShelterHeight = height;
+            this.PositionX = positionX;
+            this.PositionY = positionY;
             InitializeComponent();
         }
-        private string ProcessName = "WeChat";
-        private void Form1_Resize(object sender, EventArgs e)
+        private string ProcessName;
+        private void Form1Resize(object sender, EventArgs e)
         {
             var rect = GetWindowRect();
             var winInfo = new ShelterWinInfo(rect);
@@ -24,7 +33,7 @@ namespace Whiteboard
             DrawMosaic(this.pictureBox1);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1Load(object sender, EventArgs e)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
             //隐藏导航条
@@ -34,13 +43,20 @@ namespace Whiteboard
             {
                 while (true)
                 {
+                    //如果没有指定定位则以遮盖窗口左上角为准
                     var rect = GetWindowRect();
+                    if (this.PositionX.HasValue && this.PositionY.HasValue)
+                        Location = new Point((int)this.PositionX, (int)this.PositionY);
+                    else
+                        Location = new Point(rect.Left - 1, rect.Top);
+
                     var winInfo = new ShelterWinInfo(rect);
-                    Location = new Point(rect.Left - 1, rect.Top);
                     //遮盖宽度，减三百是为了不遮盖关闭按钮
-                    this.Width = winInfo.Width - 300;
+                    //this.Width = winInfo.Width - 300;
+                    this.Width = this.ShelterWidth;
                     //大概高度是十二分之一，微信显示名字的栏目
-                    this.Height = Convert.ToInt32(winInfo.Height * 0.08);
+                    //this.Height = Convert.ToInt32(winInfo.Height * 0.08);
+                    this.Height = this.ShelterHeight;
                     Thread.Sleep(200);
                 }
             });
@@ -49,34 +65,11 @@ namespace Whiteboard
             ChangePosThread.Start();
         }
 
-        private int GetProcessIdByName()
-        {
-            //获取所有的进程列表
-            Process[] ps = Process.GetProcesses();
-            foreach (Process p in ps)
-            {
-                try
-                {
-                    if (p.ProcessName.Equals(ProcessName))
-                    {
-                        return p.Id;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    continue;
-                }
-            }
-            return 0;
-        }
+
 
         public User32.Rect GetWindowRect()
         {
-            var process = Process.GetProcessById(GetProcessIdByName());
+            var process = Process.GetProcessById(Common.GetProcessIdByName(ProcessName));
             //获取窗口句柄
             var handle = process.MainWindowHandle;
 
@@ -107,7 +100,7 @@ namespace Whiteboard
                 public int Bottom;
             }
         }
-        private void Form1_Dispose(object sender, EventArgs e)
+        private void Form1Dispose(object sender, EventArgs e)
         {
             //终止线程
             if (ChangePosThread != null)

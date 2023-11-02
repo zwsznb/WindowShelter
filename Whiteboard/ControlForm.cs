@@ -16,7 +16,7 @@ namespace Whiteboard
             InitializeComponent();
         }
 
-        private void Create_Click(object sender, EventArgs e)
+        private void CreateClick(object sender, EventArgs e)
         {
             if (form == null)
             {
@@ -25,7 +25,7 @@ namespace Whiteboard
             }
         }
 
-        private void Close_Click(object sender, EventArgs e)
+        private void CloseClick(object sender, EventArgs e)
         {
             if (form != null)
             {
@@ -33,5 +33,11 @@ namespace Whiteboard
                 form = null;
             }
         }
+        private void FormLoad(object sender, EventArgs e)
+        {
+            this.ProcessList.Items.AddRange(Common.GetProcessNameList().ToArray());
+        }
+     
+
     }
 }

@@ -63,9 +63,9 @@ namespace Whiteboard
             this.Name = "Form1";
             this.Text = "白板";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.Resize += new System.EventHandler(this.Form1_Resize);
-            this.Disposed += new System.EventHandler(this.Form1_Dispose);
+            this.Load += new System.EventHandler(this.Form1Load);
+            this.Resize += new System.EventHandler(this.Form1Resize);
+            this.Disposed += new System.EventHandler(this.Form1Dispose);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
