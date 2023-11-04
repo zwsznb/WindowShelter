@@ -158,6 +158,9 @@ namespace Whiteboard
         {
             return str == null || str.Trim().Length == 0;
         }
+        /// <summary>
+        /// 参考https://stackoverflow.com/questions/13485477/can-a-picturebox-show-animated-gif-in-windows-application
+        /// </summary>
         public class GifImage
         {
             private Image gifImage;
@@ -166,6 +169,8 @@ namespace Whiteboard
             private int currentFrame = -1;
             private bool reverse;
             private int step = 1;
+            private Image imageCache;
+            private int cacheIndex;
 
             public GifImage(string path)
             {
@@ -186,7 +191,6 @@ namespace Whiteboard
 
             public Image GetNextFrame()
             {
-                Console.WriteLine($"当前是第{currentFrame}帧");
                 currentFrame += step;
 
                 //if the animation reaches a boundary...
@@ -210,10 +214,26 @@ namespace Whiteboard
 
             public Image GetFrame(int index)
             {
+                Image image = null;
+                if (cacheIndex == index && imageCache != null)
+                {
+                    image = imageCache;
+                }
+                else
+                {
+                    image = GetFrameByIndex(index);
+                }
+                cacheIndex = (index % (frameCount - 1)) + 1;
+                imageCache = GetFrameByIndex(cacheIndex);
+                return image;
+            }
+
+            private Image GetFrameByIndex(int index)
+            {
                 gifImage.SelectActiveFrame(dimension, index);
-                //find the frame
-                return (Image)gifImage.Clone();
-                //return a copy of it
+
+                var image = (Image)gifImage.Clone();
+                return image;
             }
         }
     }

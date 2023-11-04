@@ -79,7 +79,7 @@ namespace Whiteboard
             Image img = null;
             if (IsNullAndEmpty(this.ImgPath))
             {
-                img = NormalImage(width, height, $@"{AppDomain.CurrentDomain.BaseDirectory}/1698909836913.jpg");
+                NormalImage(width, height, $@"{AppDomain.CurrentDomain.BaseDirectory}/1698909836913.jpg");
             }
             else
             {
@@ -89,18 +89,17 @@ namespace Whiteboard
                 }
                 else
                 {
-                    img = NormalImage(width, height, $"{this.ImgPath}");
+                    NormalImage(width, height, $"{this.ImgPath}");
                 }
             }
         }
 
-        private Image NormalImage(int width, int height, string path)
+        private void NormalImage(int width, int height, string path)
         {
             Image img = Image.FromFile(path);
             //重置高宽
             Bitmap map = new Bitmap(img, new Size(width, height));
             pictureBox1.Image = map;
-            return img;
         }
 
         private void CreateGifImg()

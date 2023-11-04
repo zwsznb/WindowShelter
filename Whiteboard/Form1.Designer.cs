@@ -54,6 +54,11 @@ namespace Whiteboard
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // gifTimer
+            // 
+            this.gifTimer.Interval = 70;
+            this.gifTimer.Tick += new System.EventHandler(this.GifTimerTick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -66,9 +71,8 @@ namespace Whiteboard
             this.Text = "白板";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1Load);
+            this.KeyDown += this.KeyClose;
             this.Disposed += new System.EventHandler(this.Form1Dispose);
-            this.gifTimer.Tick += new EventHandler(GifTimerTick);
-            this.KeyDown += KeyClose;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
