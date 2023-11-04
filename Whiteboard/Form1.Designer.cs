@@ -73,6 +73,7 @@ namespace Whiteboard
             this.Load += new System.EventHandler(this.Form1Load);
             this.KeyDown += this.KeyClose;
             this.Disposed += new System.EventHandler(this.Form1Dispose);
+            this.Resize += new EventHandler(this.Form1Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

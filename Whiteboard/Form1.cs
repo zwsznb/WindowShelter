@@ -29,7 +29,14 @@ namespace Whiteboard
             this.CloseFormAction = closeFormAction;
             InitializeComponent();
         }
-
+        private void Form1Resize(object sender, EventArgs e)
+        {
+            var rect = GetWindowRect(ProcessName);
+            var winInfo = new ShelterWinInfo(rect);
+            this.pictureBox1.Width = winInfo.Width;
+            this.pictureBox1.Height = winInfo.Height;
+            DrawImage(this.pictureBox1);
+        }
         private void Form1Load(object sender, EventArgs e)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
@@ -76,7 +83,6 @@ namespace Whiteboard
         private void DrawImage(PictureBox image)
         {
             int width = image.Width, height = image.Height;
-            Image img = null;
             if (IsNullAndEmpty(this.ImgPath))
             {
                 NormalImage(width, height, $@"{AppDomain.CurrentDomain.BaseDirectory}/1698909836913.jpg");
