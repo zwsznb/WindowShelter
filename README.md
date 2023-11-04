@@ -3,5 +3,7 @@
 
 ![1698980770080](/img/1698980770080.jpg)
 
+tip：点击遮罩，按下ctrl键可快速关闭
+
 参考项目：https://github.com/zkeenly/whiteboard
 
