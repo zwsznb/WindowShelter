@@ -32,7 +32,7 @@ namespace Whiteboard
                     if (PositionY.Text.Length == 0)
                         positionY = 0;
                     else
-                        positionY = Convert.ToInt32(PositionX.Text);
+                        positionY = Convert.ToInt32(PositionY.Text);
                     var imgPath = this.ImgPath.Text;
                     if (!IsNullAndEmpty(imgPath) && !IsImageFile(imgPath))
                     {
