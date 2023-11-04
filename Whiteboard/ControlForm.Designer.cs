@@ -49,11 +49,14 @@ namespace Whiteboard
             this.WidthLabel = new System.Windows.Forms.Label();
             this.HeightLabel = new System.Windows.Forms.Label();
             this.Tips = new System.Windows.Forms.Label();
+            this.SelectImgBtn = new System.Windows.Forms.Button();
+            this.ImgPath = new System.Windows.Forms.TextBox();
+            this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // CreateButton
             // 
-            this.CreateButton.Location = new System.Drawing.Point(74, 253);
+            this.CreateButton.Location = new System.Drawing.Point(64, 309);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(103, 44);
             this.CreateButton.TabIndex = 0;
@@ -63,7 +66,7 @@ namespace Whiteboard
             // 
             // CloseButton
             // 
-            this.CloseButton.Location = new System.Drawing.Point(196, 253);
+            this.CloseButton.Location = new System.Drawing.Point(196, 309);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(92, 44);
             this.CloseButton.TabIndex = 1;
@@ -78,9 +81,8 @@ namespace Whiteboard
             this.ProcessList.Name = "ProcessList";
             this.ProcessList.Size = new System.Drawing.Size(108, 23);
             this.ProcessList.TabIndex = 2;
-            //this.ProcessList.SelectedIndexChanged += new System.EventHandler(this.ProcessListSelectedIndexChanged);
-            this.ProcessList.Click += new System.EventHandler(this.ProcessListClick);
             this.ProcessList.SelectionChangeCommitted += new System.EventHandler(this.ProcessSelect);
+            this.ProcessList.Click += new System.EventHandler(this.ProcessListClick);
             // 
             // ProcessName
             // 
@@ -194,15 +196,39 @@ namespace Whiteboard
             // Tips
             // 
             this.Tips.AutoSize = true;
-            this.Tips.Location = new System.Drawing.Point(33, 324);
+            this.Tips.Location = new System.Drawing.Point(21, 379);
             this.Tips.Name = "Tips";
             this.Tips.Size = new System.Drawing.Size(369, 15);
             this.Tips.TabIndex = 16;
             this.Tips.Text = "tip:如果没有填写定位，则以选定进程窗口的定位为准";
             // 
+            // SelectImg
+            // 
+            this.SelectImgBtn.Location = new System.Drawing.Point(64, 252);
+            this.SelectImgBtn.Name = "SelectImg";
+            this.SelectImgBtn.Size = new System.Drawing.Size(110, 25);
+            this.SelectImgBtn.TabIndex = 17;
+            this.SelectImgBtn.Text = "选择遮盖图片";
+            this.SelectImgBtn.UseVisualStyleBackColor = true;
+            this.SelectImgBtn.Click += new EventHandler(OpenDialog);
+            // 
+            // ImgPath
+            // 
+            this.ImgPath.Enabled = false;
+            this.ImgPath.Location = new System.Drawing.Point(180, 252);
+            this.ImgPath.Name = "ImgPath";
+            this.ImgPath.Size = new System.Drawing.Size(108, 25);
+            this.ImgPath.TabIndex = 18;
+            // 
+            // openFileDialog
+            // 
+            this.OpenFileDialog.FileName = "openFileDialog";
+            // 
             // ControlForm
             // 
-            this.ClientSize = new System.Drawing.Size(354, 345);
+            this.ClientSize = new System.Drawing.Size(366, 415);
+            this.Controls.Add(this.ImgPath);
+            this.Controls.Add(this.SelectImgBtn);
             this.Controls.Add(this.Tips);
             this.Controls.Add(this.HeightLabel);
             this.Controls.Add(this.WidthLabel);
@@ -228,7 +254,7 @@ namespace Whiteboard
 
         }
 
-        
+
 
 
 
@@ -252,5 +278,8 @@ namespace Whiteboard
         private Label WidthLabel;
         private Label HeightLabel;
         private Label Tips;
+        private Button SelectImgBtn;
+        private TextBox ImgPath;
+        private OpenFileDialog OpenFileDialog;
     }
 }

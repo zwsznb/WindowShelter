@@ -59,19 +59,21 @@ namespace Whiteboard
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(736, 44);
             this.Controls.Add(this.pictureBox1);
-            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "白板";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1Load);
             this.Resize += new System.EventHandler(this.Form1Resize);
             this.Disposed += new System.EventHandler(this.Form1Dispose);
+            this.KeyDown += KeyClose;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
-       
+        
+
+
 
 
 

@@ -16,11 +16,11 @@ namespace Whiteboard
         {
             if (form == null)
             {
-
+                var errInfo = "数据格式不正确,请正确填写";
                 try
                 {
                     var processName = ProcessList.SelectedItem as string;
-                    if (processName.Length == 0) throw new Exception();
+                    if (IsNullAndEmpty(processName)) throw new Exception();
                     var width = Convert.ToInt32(ShelterWidth.Text);
                     var height = Convert.ToInt32(ShelterHeight.Text);
                     int positionX;
@@ -33,12 +33,20 @@ namespace Whiteboard
                         positionY = 0;
                     else
                         positionY = Convert.ToInt32(PositionX.Text);
-                    form = new Form1(processName, width, height, positionX, positionY);
+                    var imgPath = this.ImgPath.Text;
+                    if (!IsNullAndEmpty(imgPath) && !IsImageFile(imgPath))
+                    {
+                        errInfo = $"{imgPath}不是图片";
+                        this.ImgPath.Text = null;
+                        throw new Exception(errInfo);
+                    }
+                    form = new Form1(processName, width, height,
+                        positionX, positionY, imgPath, () => { FormClose(); });
                     form.Show();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("数据格式不正确,请正确填写");
+                    MessageBox.Show(errInfo);
                     FormClose();
                 }
             }
@@ -67,13 +75,21 @@ namespace Whiteboard
         }
         private void FormLoad(object sender, EventArgs e)
         {
-            //this.ProcessList.Items.AddRange(Common.GetProcessNameList().ToArray());
+
         }
 
         private void ProcessListClick(object sender, EventArgs e)
         {
             this.ProcessList.Items.Clear();
             this.ProcessList.Items.AddRange(Common.GetProcessNameList().ToArray());
+        }
+
+        private void OpenDialog(object sender, EventArgs e)
+        {
+            if (this.OpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.ImgPath.Text = this.OpenFileDialog.FileName;
+            }
         }
     }
 }
