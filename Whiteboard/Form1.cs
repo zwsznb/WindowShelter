@@ -16,6 +16,7 @@ namespace Whiteboard
         private string ProcessName;
         private string ImgPath;
         private Action CloseFormAction;
+        private GifImage gifImage = null;
         public Form1(string processName, int width, int height, int positionX, int positionY,
             string imgPath, Action closeFormAction)
         {
@@ -27,14 +28,6 @@ namespace Whiteboard
             this.ImgPath = imgPath;
             this.CloseFormAction = closeFormAction;
             InitializeComponent();
-        }
-        private void Form1Resize(object sender, EventArgs e)
-        {
-            var rect = GetWindowRect(ProcessName);
-            var winInfo = new ShelterWinInfo(rect);
-            this.pictureBox1.Width = winInfo.Width;
-            this.pictureBox1.Height = winInfo.Height;
-            DrawImage(this.pictureBox1);
         }
 
         private void Form1Load(object sender, EventArgs e)
@@ -68,6 +61,7 @@ namespace Whiteboard
             //终止线程
             if (ChangePosThread != null)
                 ChangePosThread.Abort();
+            this.gifTimer.Stop();
         }
         private void KeyClose(object sender, KeyEventArgs e)
         {
@@ -78,19 +72,49 @@ namespace Whiteboard
         }
 
 
-        //画马赛克
+        //TODO 优化？
         private void DrawImage(PictureBox image)
         {
             int width = image.Width, height = image.Height;
             Image img = null;
             if (IsNullAndEmpty(this.ImgPath))
-                img = Image.FromFile($@"{AppDomain.CurrentDomain.BaseDirectory}/1698909836913.jpg");
+            {
+                img = NormalImage(width, height, $@"{AppDomain.CurrentDomain.BaseDirectory}/1698909836913.jpg");
+            }
             else
-                img = Image.FromFile($"{this.ImgPath}");
+            {
+                if (this.ImgPath.EndsWith(".gif"))
+                {
+                    CreateGifImg();
+                }
+                else
+                {
+                    img = NormalImage(width, height, $"{this.ImgPath}");
+                }
+            }
+        }
+
+        private Image NormalImage(int width, int height, string path)
+        {
+            Image img = Image.FromFile(path);
             //重置高宽
             Bitmap map = new Bitmap(img, new Size(width, height));
             pictureBox1.Image = map;
+            return img;
+        }
 
+        private void CreateGifImg()
+        {
+            if (this.ImgPath.EndsWith(".gif"))
+            {
+                gifImage = new GifImage(this.ImgPath);
+                gifImage.ReverseAtEnd = false;
+                this.gifTimer.Enabled = true;
+            }
+        }
+        private void GifTimerTick(object sender, EventArgs e)
+        {
+            pictureBox1.Image = gifImage.GetNextFrame();
         }
     }
 }

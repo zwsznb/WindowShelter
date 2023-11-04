@@ -46,6 +46,7 @@ namespace Whiteboard
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     MessageBox.Show(errInfo);
                     FormClose();
                 }
